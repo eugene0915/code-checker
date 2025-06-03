@@ -14,7 +14,16 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Code Checker</title>
+      <title>Code Bracket Checker – 무료 코드 괄호 검사기</title>
+      <meta name="description" content="붙여넣기만 하면 코드의 괄호 매칭 오류를 즉시 확인할 수 있는 무료 도구입니다." />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta name="robots" content="index, follow" />
+      <meta property="og:title" content="Code Bracket Checker" />
+      <meta property="og:description" content="코드의 중괄호, 소괄호, 대괄호 오류를 한눈에 확인!" />
+      <meta property="og:url" content="https://bracketchecker.com" />
+      <meta property="og:type" content="website" />
+      <meta property="og:image" content="https://bracketchecker.com/og-image.png" />
+      <link rel="canonical" href="https://bracketchecker.com" />
       </Head>
 
       <div
