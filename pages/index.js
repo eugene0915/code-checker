@@ -1,25 +1,50 @@
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
+import { useState, useEffect } from 'react';
 
 const CodeEditor = dynamic(() => import('../components/CodeEditor'), { ssr: false });
 
 export default function Home() {
+  const [isDark, setIsDark] = useState(true);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', isDark);
+  }, [isDark]);
+  
   return (
     <>
       <Head>
         <title>Code Checker</title>
-        <meta name="description" content="Paste your code and match brackets instantly" />
       </Head>
 
-      <div className="min-h-screen bg-gray-900 text-white font-mono flex flex-col justify-center items-center px-4 py-12">
-        <h1 className="text-3xl font-bold mb-4 text-center">
-          🧠 Code Bracket Checker
-        </h1>
-        <p className="mb-8 text-center text-gray-300">
+      <div
+  className={`min-h-screen font-mono px-4 py-12 transition-colors duration-300 ${
+    isDark ? 'bg-gray-900 text-white' : 'bg-white text-black'
+  }`}
+>
+        <div className="flex justify-end max-w-4xl mx-auto mb-4">
+        <button
+          onClick={() => setIsDark(!isDark)}
+          className={`
+            px-4 py-2 rounded text-sm font-semibold transition-transform duration-150
+            shadow-sm hover:shadow-md hover:scale-95 active:scale-90
+            border
+            ${isDark
+              ? 'bg-gray-100 text-gray-900 border-gray-300' // 다크 모드 중 → 버튼은 Light 모드용 스타일
+              : 'bg-gray-800 text-white border-gray-600'    // 라이트 모드 중 → 버튼은 Dark 모드용 스타일
+            }
+          `}
+        >
+            {isDark ? '🌞 Light Mode' : '🌙 Dark Mode'}
+          </button>
+        </div>
+
+        <h1 className="text-3xl font-bold text-center mb-4">🧠 Code Bracket Checker</h1>
+        <p className="text-center text-gray-600 dark:text-gray-300 mb-8">
           Paste your code below. Matching brackets will be highlighted!
         </p>
-        <div className="w-full max-w-4xl">
-          <CodeEditor />
+        <div className="w-full max-w-4xl mx-auto">
+          <CodeEditor isDark={isDark} />
         </div>
       </div>
     </>
